@@ -7,12 +7,16 @@ const selectWorkingDirectory = () => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
     const processAnswer = (answer) => {
+        // Get a name of a user
         console.log(`Окей, ты выбрал юзера: ${answer}`);
-        const resultPath = path.join('C:', 'Users', answer)
+        let resultPath = path.join('C:', 'Users', answer)
         console.log('Result Path:', resultPath)
 
-        const result = execSync("explorer " + resultPath)
-        console.log(result.toString())
+        // Open Downloads folder (inside a user)
+        resultPath = path.join(resultPath, 'Downloads')
+        // Open the path in File Explorer
+        const resultRunningCommand = execSync("explorer " + resultPath)
+        console.log("🚀 ~ file: utils.js ~ line 19 ~ processAnswer ~ resultRunningCommand", resultRunningCommand)
         rl.close();
     }
 
@@ -23,6 +27,4 @@ const selectWorkingDirectory = () => {
 module.exports = { 
     selectWorkingDirectory
 }
-
-
 
