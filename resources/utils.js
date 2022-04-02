@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs-extra')
 const readline = require('readline');
 const { execSync } = require("child_process");
 
@@ -23,8 +24,30 @@ const selectWorkingDirectory = () => {
     rl.question('Как зовут твоего юзера?', processAnswer);
 }
 
+/**
+ * Moves file or directory to a folder
+ * @param {Path} fromPath File to move
+ * @param {Path} toFolder Directory that should hold this file or folder
+ */
+const moveFiles = (fromPath, toFolder) => {
+    //TODO: Return successful or not
+    const fileName = path.parse(fromPath).name
+    const extName = path.parse(fromPath).ext
+    let fullFilename = fileName + extName;
+    const workingToPath = path.join(toFolder, fullFilename)
+    try {
+        fs.moveSync(fromPath, workingToPath, { overwrite: true })
+        console.log('Successfully moved file:', fullFilename);
+    } catch (error) {
+        console.log(`Cannot move file ${fullFilename}. To ${workingToPath}`);
+    }
+}
 
-module.exports = { 
-    selectWorkingDirectory
+const cleanExtension = (ext) => ext.replace('.', '').toLowerCase()
+
+module.exports = {
+    selectWorkingDirectory,
+    moveFiles,
+    cleanExtension
 }
 
