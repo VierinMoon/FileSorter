@@ -49,6 +49,8 @@ const __makeWorkFor = (username) => {
     });
     //------------------------------------------------------------
     //Проходимся по всем файлам внутри "Downloads"
+    let failed = 0;
+    let success =0;
     for (let i = 0; i < downloadFolder.length; i++) {
         const usedFileData = path.parse(downloadFolder[i])
         const extension = utils.cleanExtension(usedFileData.ext);
@@ -61,7 +63,11 @@ const __makeWorkFor = (username) => {
                 if (!handledExts.includes(extension)) {
                     console.log('We cannot detect folder for a file ext:', extension);
                     const to = path.join(currentPath, `Other`)                      //Если окончания нет, также отправляем в Other
-                    utils.moveFiles(from, to)
+                    const successful = utils.moveFiles(from, to)
+                        if (!successful)
+                            failed += 1;
+                        else
+                            success += 1;
                 } else {
                     entriesFoldersDictionary.forEach(entry => {
                         //TODO: fix 4 times looping
@@ -70,16 +76,27 @@ const __makeWorkFor = (username) => {
 
                         if (possibleExtention.includes(extension)) {                    //Если есть, проверяем входит ли оно в архив
                             const toFolder = path.join(currentPath, `${nameFolder}`)    //Создаем путь с соответсвующей папкой
-                            utils.moveFiles(from, toFolder)                             //Перемещаем файл
+                            const successful = utils.moveFiles(from, toFolder)                             
+                            if (!successful)
+                                failed += 1;
+                            else
+                                success += 1;
                         }
                     });
                 }
             } else {
                 const to = path.join(currentPath, `Other`)                      //Если окончания нет, также отправляем в Other
-                utils.moveFiles(from, to)
+                const successful = utils.moveFiles(from, to);
+                if (!successful)
+                                failed += 1;
+                            else
+                                success += 1;
             }
         }
-    }
+    } // end looping files
+let persentOfSuccess = (success/(success + failed))*100;
+console.log(`Success: ${success}; Failed: ${failed}; Persent of success: ${persentOfSuccess}%`);
+    // TODO: Tell how much files successful, how much not. +in %
 }
 
 module.exports = {

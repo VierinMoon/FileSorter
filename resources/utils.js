@@ -38,8 +38,10 @@ const moveFiles = (fromPath, toFolder) => {
     try {
         fs.moveSync(fromPath, workingToPath, { overwrite: true })
         console.log('Successfully moved file:', fullFilename);
+        return true;
     } catch (error) {
         console.log(`Cannot move file ${fullFilename}. To ${workingToPath}`);
+        return false;
     }
 }
 
