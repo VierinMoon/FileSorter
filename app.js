@@ -6,10 +6,11 @@ const fs = require('fs-extra');
 //Открываем папку загрузок с введенным юзером
 //--------------------------------------------------------
 const foldersTypesDictionary = {
-    'Documents': ['txt', 'docx', 'rtf', 'pages', 'csv', 'xlsx', 'pdf'],
-    'Programs': ['exe', 'dmg', 'app', 'pkg', 'dll', 'msi'],
-    'Archives': ['zip', 'rar'],
-    'Images': ['png', 'jpg', 'psd', 'jpeg', 'bmp'],
+    'Documents': ['txt', 'docx', 'rtf', 'pages', 'csv', 'xlsx', 'pdf', 'md'],
+    'Programs': ['exe', 'dmg', 'app', 'pkg', 'dll', 'msi', 'jar'],
+    'Archives': ['zip', 'rar', '7z'],
+    'Images': ['png', 'jpg', 'psd', 'jpeg', 'bmp', 'ico', 'gif', 'jfif'],
+    'Videos': ['mov', 'mp4'],
     'Other': ['ini']
 };
 let handledExts = []
