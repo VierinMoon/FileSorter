@@ -70,20 +70,29 @@ const __makeWorkFor = (username) => {
                         else
                             success += 1;
                 } else {
-                    entriesFoldersDictionary.forEach(entry => {
-                        //TODO: fix 4 times looping
-                        let nameFolder = entry[0];
-                        let possibleExtention = entry[1];
 
-                        if (possibleExtention.includes(extension)) {                    //Если есть, проверяем входит ли оно в архив
-                            const toFolder = path.join(currentPath, `${nameFolder}`)    //Создаем путь с соответсвующей папкой
-                            const successful = utils.moveFiles(from, toFolder)                             
-                            if (!successful)
-                                failed += 1;
-                            else
-                                success += 1;
-                        }
-                    });
+                    try {
+                        entriesFoldersDictionary.forEach(entry => {
+                            //TODO: fix 4 times looping
+                            
+                            let nameFolder = entry[0];
+                            console.log("🚀 ~ file: app.js ~ line 75 ~ nameFolder ", nameFolder )
+                            let possibleExtention = entry[1];
+                                
+                            if (possibleExtention.includes(extension)) {                    //Если есть, проверяем входит ли оно в архив
+                                const toFolder = path.join(currentPath, `${nameFolder}`)    //Создаем путь с соответсвующей папкой
+                                const successful = utils.moveFiles(from, toFolder)
+                                                             
+                                if (!successful)
+                                    {failed += 1;}
+                                else
+                                    {success += 1;} 
+                                throw foldersTypesDictionary;
+                            }
+                        });
+                      } catch (err) {
+                        
+                      }
                 }
             } else {
                 const to = path.join(currentPath, `Other`)                      //Если окончания нет, также отправляем в Other
@@ -97,7 +106,6 @@ const __makeWorkFor = (username) => {
     } // end looping files
 let persentOfSuccess = (success/(success + failed))*100;
 console.log(`Success: ${success}; Failed: ${failed}; Persent of success: ${persentOfSuccess}%`);
-    // TODO: Tell how much files successful, how much not. +in %
 }
 
 module.exports = {
