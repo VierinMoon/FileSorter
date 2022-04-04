@@ -85,33 +85,3 @@ const __makeWorkFor = (username) => {
 module.exports = {
     resultWorkingFunction,
 }
-
-//Спрашиваем имя Пользователя
-//С помощью полученного имени создаем путь до папки загрузок
-//Читаем содержимое этой папки
-//Создаем несколько папок дял каждого типа файлов (при наличии, используем существующие)
-//Проходимся по всем файлам внутри "Downloads"
-//По типу данных распределяем файлы по папкам -> Проверить не забрасываются ли созданные папки
-//Желаем хорошего дня  user'у
-
-
-
-
-/* if (arrFiles.length == 2) {                                     //Проверяем, является ли перебираемый элемент корректным файлом
-        extention =  arrFiles[1];
-        Object.entries(foldersTypesDictionary).forEach(entry => {             //Если да, сравниваем его значение после точки 
-            //const folderOthers = `C:/Users/kolia/testFolderJS/Other` 
-            const to = path.join(currentPath, 'Other')         //со значением из словаря (пока Others)
-            nameFile = entry[0];
-            possibleExtention = entry[1];
-            if (possibleExtention.includes(extention)){                       //Если окончание сущетсвует в регистре, перемещаем файл в папку Other              
-                console.log(`включает ${extention}`);
-                // utils.moveFile(from, to)                             
-            }
-        });
-    } else {
-        console.log(`Не включает ${extention}`);
-        
-        // 
-        // utils.moveFile(from, to)
-    }*/
